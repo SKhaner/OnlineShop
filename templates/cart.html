@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Cart</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="/static/logo2.png">
+  <link rel="icon" href="/static/logo2.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+  </style>
+
+  <script>
+  function validateForm() {
+  let x = document.forms["myForm"]["quanity"].value;
+  if (x < 0) {
+    alert("Please Enter Valid Quantity");
+    return false;
+  }
+}
+</script>
+  
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>  
+          <span class="icon-bar"></span>
+        </button>
+        
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          {% if 'username' in session %}
+          <ul class="nav navbar-nav">
+            <li class="active"><a href = "/loggedin">Home</a></li>
+          </ul>
+        {% endif %}
+        {% if 'username' not in session %}
+          <ul class="nav navbar-nav">
+            <li class="active"><a href = "/">Home</a></li>
+          </ul>
+        {% endif %}
+          <li><a href="/search">Search</a></li>
+          <li><a href="/view_cart">Cart</a></li>
+          <li><a href="/prev_orders">View Order History</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="jumbotron text-center">
+    <img src="/static/logo2.png" alt="Logo" class="img2">
+   
+  </div>
+<!--
+  <ul class="menuL">
+    <li class="menuI"><a href = "/loggedin">Return to Product Page</a></li>
+  </ul>
+  -->
+    <div class="container">
+    <div class="row">
+      <h3>Items in Cart:</h3>
+  {% for x in session['cart'] %}
+      <div class="col-sm-4">
+        <ul>
+    <img src="/static/{{ x[0] }}.png" alt="watch" class="img3">
+    <dt>{{ x[0] }}</dt>
+    <li>Quantity: {{ x[1] }}</li>
+    <li>Total: ${{ x[2] }}</li>
+    <p>
+      <form action = "/update/{{ x[0] }}" method = "POST">
+		<label> Update Quantity: </label>
+		<input type = "number" name = "new" placeholder = "Enter Quantity" min="0" ><br>
+<br>
+		<input type = "submit" name = "submit">
+	</form>
+    <form action="/delete/{{ x[0] }}" method = "POST">
+      <input type = "submit" name = "submit" value="Delete Item">
+    </form>
+    </p>
+          </ul>
+      </div>
+  {% endfor %}
+    </div>
+    </div>
+<!--  
+  <ul class="menuL">
+    <li class="menuI"><a href = "/clear_cart">Empty Cart</a></li>
+    <li class="menuI"><a href = "/checkout">Check Out</a></li>
+  </ul>
+-->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+        </button>
+        
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/checkout">Check out</a></li>
+          <li><a href="/clear_cart">Empty Cart</a></li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  
+</body>
+  <footer>
+  <p>Author: Seeam Khan<p>
+</footer>
+</html>

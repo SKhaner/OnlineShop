@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+	<title>login</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="/static/logo2.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                       
+        </button>
+        
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/signup">Signup!</a></li>
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+	<h1>
+		log in:
+	</h1>
+  <!--
+	<form action = "/login" method = "POST">
+		<label> Username: </label>
+		<input type = "text" name = "user_name" placeholder = "Username" ><br>
+		<label>Password:</label>
+		<input type = "password" name = "user_pass" placeholder = "Password" id="myInput">
+    <input type="checkbox" onclick="myFunction()">Show Password
+    <br>
+		<input type = "submit" name = "submit">
+	</form>
+  -->
+
+  <form action = "/login" method = "POST">
+  <div class="imgcontainer">
+    <img src="/static/logo2.png" alt="Avatar" class="avatar">
+  </div>
+ <h3 style="color:red;">
+		Login Failed
+	</h3>
+  <div class="container">
+    <label for="user_name"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="user_name" required>
+
+    <label for="user_pass"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="user_pass" id="myInput" required>
+    <input type="checkbox" onclick="myFunction()">Show Password
+    <br>
+    <button type="submit">Login</button>
+   
+  </div>
+
+</form>
+  
+ 
+
+   <script>
+  function myFunction() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+  </script>
+  
+</body>
+</html>

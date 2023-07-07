@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<head>
+  
+  <title>Product Page</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="/static/logo2.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+  </style>
+  
+</head>
+
+<body>
+  
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>  
+          <span class="icon-bar"></span>
+        </button>
+        
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/loggedin">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/view_cart">Cart</a></li>
+          <li><a href="/prev_orders">View Order History</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+<img src="/static/logo2.png" alt="Image" class="center">
+
+<form action = "/loggedin" method = "POST">
+    <label for="filter">Filter by:</label>
+    <select id="filter" name="filter">
+      <option value="Dive">Dive Watches</option>
+      <option value="Dress">Dress Watches</option>
+      <option value="Grail">Grail Watches</option>
+    </select>
+    <input type="submit">
+</form>
+
+<div class="container text-center">
+
+  <h3>{{ f }} </h3><br>
+  <div class="row">
+    {% for x in p %}
+    <div class="col-sm-4">
+      <a href = "/prodpage/{{ x['name'] }}">
+      <img src="/static/{{ x['name'] }}.png" alt="Image" class="img3">
+      <p>{{ x["name"] }}</p>
+      <p>Price: ${{ x["price"] }}</p>
+      <p>Stock: {{ x["stock"] }}</p>
+      </a>
+<!--       <form action = "/add_cart/{{ x['name'] }}" method = "POST" name="myForm" onsubmit="return validateForm()">
+        <label> Add to Cart Quanity: </label>
+        <input type = "number" name = "quanity" placeholder = "Enter Quantity">
+        <input type = "submit" name = "submit">
+      </form> -->
+    </div>
+    {% endfor %}
+  </div>
+
+<!--
+  <h3>Dive Watches</h3><br>
+  <div class="row">
+    {% for x in d %}
+    <div class="col-sm-4">
+      <p>{{ x["name"] }}</p>
+      <p>Price: ${{ x["price"] }}</p>
+      <p>Stock: {{ x["stock"] }}</p>
+      <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+        <label> Add to Cart Quanity: </label>
+        <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+        <input type = "submit" name = "submit">
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h3>Dress Watches</h3><br>
+  <div class="row">
+    {% for x in dr %}
+    <div class="col-sm-4">
+      <p>{{ x["name"] }}</p>
+      <p>Price: ${{ x["price"] }}</p>
+      <p>Stock: {{ x["stock"] }}</p>
+      <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+        <label> Add to Cart Quanity: </label>
+        <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+        <input type = "submit" name = "submit">
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h3>Grail Watches</h3><br>
+  <div class="row">
+    {% for x in g %}
+    <div class="col-sm-4">
+      <p>{{ x["name"] }}</p>
+      <p>Price: ${{ x["price"] }}</p>
+      <p>Stock: {{ x["stock"] }}</p>
+      <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+        <label> Add to Cart Quanity: </label>
+        <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+        <input type = "submit" name = "submit">
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+  -->
+  
+</div><br>
+
+  <!--
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Dive Watches:</h3>
+      <ul>
+        {% for x in d %}
+        <img src="/static/{{ x['name'] }}.png" alt="{{ x['name'] }}" class="img1">
+        <dt><b>{{ x["name"] }}</b></dt>
+          <ul>
+          <li>Price: ${{ x["price"] }}</li>
+            <li>Stock: {{ x["stock"] }}</li>
+            <li>Category: {{ x["category"] }}</li><br>
+            <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+    		    <label> Add to Cart Quanity: </label>
+    		    <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+            <input type = "submit" name = "submit">
+    	      </form>
+           
+            <br>
+          </ul>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <h3>Dress Watches:</h3>
+      <ul>
+        {% for x in dr %}
+            <img src="/static/{{ x['name'] }}.png" alt="{{ x['name'] }}" class="img1">
+        <dt><b>{{ x["name"] }}</b></dt>
+          <ul>
+          <li>Price: ${{ x["price"] }}</li>
+            <li>Stock: {{ x["stock"] }}</li>
+            <li>Category: {{ x["category"] }}</li><br>
+            <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+    		    <label> Add to Cart Quanity: </label>
+    		    <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+            <input type = "submit" name = "submit">
+    	      </form>
+           
+            <br>
+          </ul>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <h3>Grail Watches:</h3>        
+      <ul>
+        {% for x in g %}
+            <img src="/static/{{ x['name'] }}.png" alt="{{ x['name'] }}" class="img1">
+        <dt><b>{{ x["name"] }}</b></dt>
+          <ul>
+          <li>Price: ${{ x["price"] }}</li>
+            <li>Stock: {{ x["stock"] }}</li>
+            <li>Category: {{ x["category"] }}</li><br>
+            <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+    		    <label> Add to Cart Quanity: </label>
+    		    <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+            <input type = "submit" name = "submit">
+    	      </form>
+       
+            <br>
+          </ul>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+-->
+<!-- 
+  <h2>Dive Watches:</h2>
+  <ul>
+    {% for x in d %}
+    <img src="/static/{{ x['name'] }}.png" alt="{{ x['name'] }}" class="img1">
+    <li>{{ x["name"] }}</li>
+      <ul>
+      <li>Price: ${{ x["price"] }}</li>
+        <li>Stock: {{ x["stock"] }}</li>
+        <li>Category: {{ x["category"] }}</li>
+        <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+		    <label> Add to Cart Quanity: </label>
+		    <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+        <input type = "submit" name = "submit">
+	      </form>
+        <br>
+      </ul>
+    {% endfor %}
+  </ul>
+
+  <h2>Dress Watches:</h2>
+  <ul>
+    {% for x in dr %}
+    <img src="/static/{{ x['name'] }}.png" alt="{{ x['name'] }}" class="img1">
+    <li>{{ x["name"] }}</li>
+      <ul>
+      <li>Price: ${{ x["price"] }}</li>
+        <li>Stock: {{ x["stock"] }}</li>
+        <li>Category: {{ x["category"] }}</li>
+        <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+		    <label> Add to Cart Quanity: </label>
+		    <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+        <input type = "submit" name = "submit">
+	      </form>
+        <br>
+      </ul>
+    {% endfor %}
+  </ul>
+
+  <h2>Grail Watches:</h2>
+  <ul>
+    {% for x in g %}
+    <img src="/static/{{ x['name'] }}.png" alt="{{ x['name'] }}" class="img1">
+    <li>{{ x["name"] }}</li>
+      <ul>
+      <li>Price: ${{ x["price"] }}</li>
+        <li>Stock: {{ x["stock"] }}</li>
+        <li>Category: {{ x["category"] }}</li>
+        <form action = "/add_cart/{{ x['name'] }}" method = "POST">
+		    <label> Add to Cart Quanity: </label>
+		    <input type = "number" name = "quanity" placeholder = "Enter Quantity" min="1" max="{{ x['stock'] }}">
+        <input type = "submit" name = "submit">
+	      </form>
+        <br>
+      </ul>
+    {% endfor %}
+  </ul>
+  
+-->
+
+</body>
+<footer>
+  <p>Author: Seeam Khan<br>
+</footer>
+</html>

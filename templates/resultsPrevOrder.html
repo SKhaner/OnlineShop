@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Order History</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="/static/logo2.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+  </style>
+  
+</head>
+<body>
+  
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>  
+          <span class="icon-bar"></span>
+        </button>
+        
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/loggedin">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/view_cart">Cart</a></li>
+          <li><a href="/prev_orders">View Order History</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron text-center">
+    <img src="/static/logo2.png" alt="Logo" class="img2">
+  </div>
+  
+  <h1>Your Order History:</h1>
+  {% set counter = {
+    'counter1': 0,
+    } %}
+  {% macro increment(dct, key, inc=1)%}
+    {% if dct.update({key: dct[key] + inc}) %} {% endif %}
+  {% endmacro %}
+  <!--
+  <ul>
+    {% for x in history %}
+    <dt><b>Order Number: {{ x[1] }}</b></dt>
+    <ul>
+    <li>Order Details:</li>
+      <ul>
+        {% for y in items %}
+        {% if y[1]==x[1] %}
+        <li>Product Ordered: {{ y[2] }}</li>
+          <ul>
+          <li>Quantity: {{ y[3] }}</li>
+          <li>Cost: ${{ y[4] }}</li>
+          </ul>
+        {% endif %}
+        {% endfor %}
+        {{ increment(counter, 'counter1') }}
+      
+      </ul>
+    <li>Order Total: ${{ x[2] }}</li>
+      <br>
+    </ul>
+    {% endfor %}
+  </ul>
+-->
+
+<!--   <form action = "/prev_orders" method = "POST">
+    <label for="sort">Sort by:</label>
+    <select id="sort" name="sort">
+      <option value="incDate">Oldest Orders First</option>
+      <option value="decDate">Newest Orders First</option>
+    </select>
+    <input type="submit">
+
+  </form> -->
+  
+   <div class="container">
+    <div class="row">
+      {% for x in history %}
+      <div class="col-sm-4">
+        <h3><b>Order Number: {{ x[1] }}</b></h3>
+
+        <ul>
+          <li>Order Details:</li>
+            <ul>
+              {% for y in items %}
+              {% if y[1]==x[1] %}
+              <li>Order Date: {{ x[3] }}</li>
+              <li>Product Ordered: {{ y[2] }}</li>
+              <img src="/static/{{ y[2] }}.png" alt="{{ y[2] }}" width=auto height="250px">
+            <ul>
+              <li>Quantity: {{ y[3] }}</li>
+              <li>Cost: ${{ y[4] }}</li>
+              </ul>
+              {% endif %}
+              {% endfor %}
+              {{ increment(counter, 'counter1') }}
+        
+        </ul>
+        
+      </div>
+      {% endfor %}
+    </div>
+    </div>
+  
+  
+</body>
+</html>
