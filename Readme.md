@@ -1,5 +1,5 @@
-## Project
-Online Watch Shop using SQL and Python Flask.
+## To Run
+Download all files and run main.py
 
 # Seeam Khan
 
